@@ -15,12 +15,11 @@ import java.util.Optional;
 public class TeamUserDetailsService implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    TeamDAO teamDAO;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUserName(userName);
-        user.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + userName));
-        return user.map(TeamUserDetails::new).get();
+    public UserDetails loadUserByUsername(String username) {
+        User user = teamDAO.findByUsername(username);
+        return new TeamUserDetails(user);
     }
 }

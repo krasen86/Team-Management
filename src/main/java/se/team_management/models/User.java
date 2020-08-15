@@ -1,16 +1,21 @@
 package se.team_management.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "user_account")
-public class User {
+@Table(name = "user_account", schema = "public")
+public class User implements Serializable {
 
-    @Id
+    @Id @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @Column(name = "username")
-    private String userName;
+    private Integer id;
+    private String username;
     private String password;
     @Column(name = "first_name")
     private String firstName;
@@ -24,6 +29,31 @@ public class User {
     public User() {
     }
 
+    public User(String username, String password, String firstName, String email, String lastName, String roles, boolean active) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.email = email;
+        this.lastName = lastName;
+        this.roles = roles;
+        this.active = active;
+    }
+
+    public User(User user) {
+        this.id = user.id;
+        this.username = user.username;
+        this.password = user.password;
+        this.firstName = user.firstName;
+        this.email = user.email;
+        this.lastName = user.lastName;
+        this.roles = user.roles;
+        this.active = user.active;
+    }
+
+    public User(List<User> users) {
+
+    }
+
     public String getRoles() {
         return roles;
     }
@@ -32,20 +62,20 @@ public class User {
         this.roles = roles;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getEmail() {
@@ -77,7 +107,8 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password =passwordEncoder.encode( password);
     }
 
     public boolean isActive() {
@@ -92,7 +123,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

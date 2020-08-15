@@ -7,12 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TeamUserDetails implements UserDetails {
 
-    private String userName;
+    private String username;
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorityList;
@@ -21,7 +20,7 @@ public class TeamUserDetails implements UserDetails {
     public TeamUserDetails(){}
 
     public TeamUserDetails(User user) {
-        this.userName = user.getUserName();
+        this.username = user.getUsername();
         this.password = user.getPassword();
         this.active = user.isActive();
         authorityList = Arrays.stream(user.getRoles().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
@@ -40,7 +39,7 @@ public class TeamUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
