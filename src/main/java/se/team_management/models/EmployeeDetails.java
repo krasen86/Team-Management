@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TeamUserDetails implements UserDetails {
+public class EmployeeDetails implements UserDetails {
 
     private String username;
     private String password;
@@ -17,13 +17,13 @@ public class TeamUserDetails implements UserDetails {
     private List<GrantedAuthority> authorityList;
 
 
-    public TeamUserDetails(){}
+    public EmployeeDetails(){}
 
-    public TeamUserDetails(User user) {
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-        this.active = user.isActive();
-        authorityList = Arrays.stream(user.getRoles().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    public EmployeeDetails(Employee employee) {
+        this.username = employee.getUsername();
+        this.password = employee.getPassword();
+        this.active = employee.isActive();
+        authorityList = Arrays.stream(employee.getRoles().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override

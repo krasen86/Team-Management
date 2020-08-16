@@ -21,7 +21,7 @@ import se.team_management.filters.JwtFilter;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Qualifier("teamUserDetailsService")
+    @Qualifier("employeeDetailService")
     @Autowired
     UserDetailsService userDetailService;
     @Autowired
@@ -29,15 +29,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService);
+        auth.userDetailsService(userDetailService).passwordEncoder(getPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().
-                authorizeRequests().antMatchers("/api/v1/").permitAll().anyRequest().authenticated().
-        and().exceptionHandling().and().sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/api/v1","/api/v1/login","/api/v1/register","/api/v1/employees").permitAll()
+                .anyRequest().authenticated()
+                .and().exceptionHandling()
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
