@@ -1,4 +1,4 @@
-package se.team_management.models;
+package se.team_management.models.auth;
 
 
 import javax.validation.constraints.Email;

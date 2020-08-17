@@ -8,17 +8,21 @@ import javax.validation.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-@Table(name = "user_account", schema = "public")
+@Table(name = "user_account", uniqueConstraints={
+        @UniqueConstraint(columnNames = {"username", "email"})
+}, schema = "public")
 public class Employee implements Serializable {
 
-    @Id @JsonIgnore
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "employee_id")
     private Integer id;
     @NotBlank
     private String username;
-    @NotBlank
+    @NotBlank @JsonIgnore
     private String password;
     @Column(name = "first_name")
     private String firstName;
@@ -29,7 +33,8 @@ public class Employee implements Serializable {
     private String lastName;
     private String roles;
     private boolean active;
-
+    @OneToMany(mappedBy = "employee")
+    Set<Job> jobs;
 
     public Employee() {
     }
@@ -43,6 +48,7 @@ public class Employee implements Serializable {
         this.lastName = employee.lastName;
         this.roles = employee.roles;
         this.active = employee.active;
+        this.jobs = employee.jobs;
     }
 
     public Employee(String username, String email, String password) {
@@ -53,6 +59,14 @@ public class Employee implements Serializable {
         this.lastName = "N/A";
         this.roles = Role.ROLE_USER.name();
         this.active = true;
+    }
+
+    public Set<Job> getEmployeeTaskJobs() {
+        return jobs;
+    }
+
+    public void setEmployeeTaskJobs(Set<Job> jobs) {
+        this.jobs = jobs;
     }
 
     public String getRoles() {

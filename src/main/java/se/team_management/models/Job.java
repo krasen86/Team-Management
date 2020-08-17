@@ -1,0 +1,56 @@
+package se.team_management.models;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "job", schema = "public")
+public class Job {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "job_id")
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
+
+    private long timeWorkedInMinutes;
+
+    public Job() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public long getTimeWorkedInMinutes() {
+        return timeWorkedInMinutes;
+    }
+
+    public void setTimeWorkedInMinutes(long timeWorkedInMinutes) {
+        this.timeWorkedInMinutes = timeWorkedInMinutes;
+    }
+}

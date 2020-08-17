@@ -4,19 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
-import se.team_management.models.AuthRegister;
-import se.team_management.models.AuthRequst;
+import se.team_management.models.auth.AuthRegister;
+import se.team_management.models.auth.AuthRequst;
 import se.team_management.models.Employee;
-import se.team_management.models.Role;
 import se.team_management.servises.EmployeeDAO;
 import se.team_management.util.JwtUtil;
 
 import javax.validation.Valid;
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
