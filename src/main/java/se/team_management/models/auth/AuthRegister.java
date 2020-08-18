@@ -10,7 +10,7 @@ import java.util.Set;
 public class AuthRegister {
 
     @NotBlank
-    @Size(min = 5, max = 25)
+    @Size(min = 3, max = 25)
     private String username;
     @NotBlank
     @Size(min = 8, max = 50)
