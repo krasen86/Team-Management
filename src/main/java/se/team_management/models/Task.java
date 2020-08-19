@@ -19,7 +19,11 @@ public class Task {
     private String description;
     private boolean completed;
     @OneToMany(mappedBy = "task")
-    Set<Job> jobs;
+    Set<TaskAssignment> taskAssignments;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    Project project;
+
 
 
     public Task(String title, LocalDate startDate, LocalDate endDate, String description) {
@@ -47,15 +51,15 @@ public class Task {
         this.endDate = task.endDate;
         this.description = task.description;
         this.completed = task.completed;
-        this.jobs = task.getEmployeeTaskJobs();
+        this.taskAssignments = task.getEmployeeTaskJobs();
     }
 
-    public Set<Job> getEmployeeTaskJobs() {
-        return jobs;
+    public Set<TaskAssignment> getEmployeeTaskJobs() {
+        return taskAssignments;
     }
 
-    public void setEmployeeTaskJobs(Set<Job> jobs) {
-        this.jobs = jobs;
+    public void setEmployeeTaskJobs(Set<TaskAssignment> taskAssignments) {
+        this.taskAssignments = taskAssignments;
     }
 
     public Integer getId() {

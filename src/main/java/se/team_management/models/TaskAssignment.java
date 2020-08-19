@@ -3,8 +3,8 @@ package se.team_management.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "job", schema = "public")
-public class Job {
+@Table(name = "task_assignment", schema = "public")
+public class TaskAssignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +19,7 @@ public class Job {
 
     private long timeWorkedInMinutes;
 
-    public Job() {
+    public TaskAssignment() {
     }
 
     public Integer getId() {

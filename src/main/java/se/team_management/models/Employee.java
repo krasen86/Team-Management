@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "user_account", uniqueConstraints={
+@Table(name = "employee_accounts", uniqueConstraints={
         @UniqueConstraint(columnNames = {"username", "email"})
 }, schema = "public")
 public class Employee implements Serializable {
@@ -34,7 +34,10 @@ public class Employee implements Serializable {
     private String roles;
     private boolean active;
     @OneToMany(mappedBy = "employee")
-    Set<Job> jobs;
+    Set<TaskAssignment> taskAssignments;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    Project project;
 
     public Employee() {
     }
@@ -48,7 +51,7 @@ public class Employee implements Serializable {
         this.lastName = employee.lastName;
         this.roles = employee.roles;
         this.active = employee.active;
-        this.jobs = employee.jobs;
+        this.taskAssignments = employee.taskAssignments;
     }
 
     public Employee(String username, String email, String password) {
@@ -61,12 +64,12 @@ public class Employee implements Serializable {
         this.active = true;
     }
 
-    public Set<Job> getEmployeeTaskJobs() {
-        return jobs;
+    public Set<TaskAssignment> getEmployeeTaskJobs() {
+        return taskAssignments;
     }
 
-    public void setEmployeeTaskJobs(Set<Job> jobs) {
-        this.jobs = jobs;
+    public void setEmployeeTaskJobs(Set<TaskAssignment> taskAssignments) {
+        this.taskAssignments = taskAssignments;
     }
 
     public String getRoles() {
