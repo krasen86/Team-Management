@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @Component
-@Order(SecurityProperties.DEFAULT_FILTER_ORDER)
 public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtil jwtUtil;
@@ -41,15 +40,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
-        }
-
-        httpServletResponse.setHeader("Access-Control-Allow-Origin"  , "*"                               );
-        httpServletResponse.setHeader("Access-Control-Allow-Methods" , "POST, PUT, GET, OPTIONS, DELETE, PATCH" );
-        httpServletResponse.setHeader("Access-Control-Allow-Headers" , "Authorization, Content-Type"     );
-        httpServletResponse.setHeader("Access-Control-Max-Age"       , "36000"                            );
-
-        if("OPTIONS".equalsIgnoreCase(httpServletRequest.getMethod())) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         }
 
         filterChain.doFilter(httpServletRequest,httpServletResponse);
