@@ -4,20 +4,20 @@ import se.team_management.models.Employee;
 
 public class JwtResponse {
 
-    private String token;
+    private String accessToken;
     private Employee employee;
 
-    public JwtResponse(String token, Employee employee) {
-        this.token = token;
+    public JwtResponse(String accessToken, Employee employee) {
+        this.accessToken = accessToken;
         this.employee = employee;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public Employee getEmployee() {

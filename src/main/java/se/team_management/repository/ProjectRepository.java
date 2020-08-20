@@ -8,4 +8,7 @@ import java.util.List;
 
 
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
+    Project findProjectByName(String name);
+    boolean existsByName(String title);
+
 }

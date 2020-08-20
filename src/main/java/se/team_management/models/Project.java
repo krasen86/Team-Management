@@ -3,6 +3,7 @@ package se.team_management.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -38,14 +39,23 @@ public class Project {
         this.tasks = project.tasks;
     }
 
-    public Project(String name, String description, LocalDate startDate, LocalDate endDate, boolean active, Set<Employee> employees, Set<Task> tasks) {
+    public Project(String name, LocalDate startDate, LocalDate endDate ,String description) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.active = active;
-        this.employees = employees;
-        this.tasks = tasks;
+        this.active = true;
+        this.employees = new HashSet<>();
+        this.tasks = new HashSet<>();
+    }
+    public Project(String name, LocalDate startDate, LocalDate endDate) {
+        this.name = name;
+        this.description = "N/A";
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.active = true;
+        this.employees = new HashSet<>();
+        this.tasks = new HashSet<>();
     }
 
     public Integer getId() {
