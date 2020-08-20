@@ -1,6 +1,8 @@
 package se.team_management.filters;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @Component
+@Order(SecurityProperties.DEFAULT_FILTER_ORDER)
 public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtil jwtUtil;
@@ -39,6 +42,16 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
+
+        httpServletResponse.setHeader("Access-Control-Allow-Origin"  , "*"                               );
+        httpServletResponse.setHeader("Access-Control-Allow-Methods" , "POST, PUT, GET, OPTIONS, DELETE, PATCH" );
+        httpServletResponse.setHeader("Access-Control-Allow-Headers" , "Authorization, Content-Type"     );
+        httpServletResponse.setHeader("Access-Control-Max-Age"       , "36000"                            );
+
+        if("OPTIONS".equalsIgnoreCase(httpServletRequest.getMethod())) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        }
+
         filterChain.doFilter(httpServletRequest,httpServletResponse);
     }
 }
