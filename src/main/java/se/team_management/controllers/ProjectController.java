@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/projects")
 public class ProjectController {
 
