@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import se.team_management.models.auth.AuthRegister;
 import se.team_management.models.auth.AuthRequst;
 import se.team_management.models.Employee;
+import se.team_management.models.auth.JwtResponse;
 import se.team_management.servises.EmployeeDAO;
 import se.team_management.util.JwtUtil;
 
@@ -26,7 +27,7 @@ public class HomeController {
     EmployeeDAO employeeDAO;
 
     @PostMapping("/login")
-    public ResponseEntity<String> generateJwToken(@RequestBody AuthRequst authRequst) {
+    public ResponseEntity<?> generateJwToken(@RequestBody AuthRequst authRequst) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequst.getUsername(),authRequst.getPassword())
@@ -35,7 +36,7 @@ public class HomeController {
         catch (Exception e){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().body(jwtUtil.generateToken(authRequst.getUsername()));
+        return ResponseEntity.ok().body(new JwtResponse(jwtUtil.generateToken(authRequst.getUsername()),employeeDAO.findByUsername(authRequst.getUsername())));
     }
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRegister authRegister) {
