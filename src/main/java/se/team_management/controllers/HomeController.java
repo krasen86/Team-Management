@@ -15,7 +15,7 @@ import se.team_management.util.JwtUtil;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "*")
 @RequestMapping(value = "/api/v1")
 public class HomeController {
 

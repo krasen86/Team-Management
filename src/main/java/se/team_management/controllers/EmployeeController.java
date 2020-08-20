@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "*")
 @RequestMapping("/api/v1/employees")
 public class EmployeeController {
 
