@@ -77,6 +77,9 @@ public class EmployeeController {
             field.setAccessible(true);
             ReflectionUtils.setField(field, employeeToModify,v);
         });
+        if (userData.containsKey("password")){
+            employeeToModify.setPassword(userData.get("password").toString());
+        }
         return  ResponseEntity.ok().body(employeeDAO.save(employeeToModify));
     }
 
