@@ -12,6 +12,7 @@ import java.util.Set;
 public class Project {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "project_id")
     private Integer id;
     @Column(name = "project_name") @NotBlank

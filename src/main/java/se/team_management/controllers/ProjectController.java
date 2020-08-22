@@ -41,7 +41,7 @@ public class ProjectController {
         if (projectDAO.findIfExistsByName(newProject.getName())) {
             return ResponseEntity
                     .badRequest()
-                    .body("Task title is already taken!");
+                    .body("Project name is already taken!");
         }
         Project project;
         if (newProject.getDescription() == null){
