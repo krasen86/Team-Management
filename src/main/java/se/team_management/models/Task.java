@@ -2,6 +2,7 @@ package se.team_management.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,10 +20,10 @@ public class Task {
     private String description;
     private boolean completed;
     @OneToMany(mappedBy = "task")
-    Set<TaskAssignment> taskAssignments;
+    private Set<TaskAssignment> taskAssignments;
     @ManyToOne
     @JoinColumn(name = "project_id")
-    Project project;
+    private Project project;
 
 
 
@@ -32,6 +33,8 @@ public class Task {
         this.endDate = endDate;
         this.description = description;
         this.completed = false;
+        this.taskAssignments = new HashSet<>();
+        this.project = new Project();
     }
     public Task(String title, LocalDate startDate, LocalDate endDate) {
         this.title = title;
@@ -39,6 +42,8 @@ public class Task {
         this.endDate = endDate;
         this.description = "";
         this.completed = false;
+        this.taskAssignments = new HashSet<>();
+        this.project = new Project();
     }
 
     public Task() {
@@ -51,14 +56,15 @@ public class Task {
         this.endDate = task.endDate;
         this.description = task.description;
         this.completed = task.completed;
-        this.taskAssignments = task.getEmployeeTaskJobs();
+        this.taskAssignments = task.getTaskAssignments();
+        this.project = task.project;
     }
 
-    public Set<TaskAssignment> getEmployeeTaskJobs() {
+    public Set<TaskAssignment> getTaskAssignments() {
         return taskAssignments;
     }
 
-    public void setEmployeeTaskJobs(Set<TaskAssignment> taskAssignments) {
+    public void setTaskAssignments(Set<TaskAssignment> taskAssignments) {
         this.taskAssignments = taskAssignments;
     }
 
@@ -108,6 +114,14 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     @Override

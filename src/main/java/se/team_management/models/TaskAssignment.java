@@ -8,7 +8,7 @@ public class TaskAssignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "job_id")
+    @Column(name = "task_assignment_id")
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "employee_id")

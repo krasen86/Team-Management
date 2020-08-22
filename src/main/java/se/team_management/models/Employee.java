@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,10 +35,9 @@ public class Employee implements Serializable {
     private String roles;
     private boolean active;
     @OneToMany(mappedBy = "employee")
-    Set<TaskAssignment> taskAssignments;
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    Project project;
+    private Set<TaskAssignment> taskAssignments;
+    @OneToMany(mappedBy = "employee")
+    private Set<ProjectAssignment> projectAssignments;
 
     public Employee() {
     }
@@ -52,6 +52,7 @@ public class Employee implements Serializable {
         this.roles = employee.roles;
         this.active = employee.active;
         this.taskAssignments = employee.taskAssignments;
+        this.projectAssignments = employee.projectAssignments;
     }
 
     public Employee(String username, String email, String password) {
@@ -62,14 +63,24 @@ public class Employee implements Serializable {
         this.lastName = "N/A";
         this.roles = Role.ROLE_USER.name();
         this.active = true;
+        this.taskAssignments = new HashSet<>();
+        this.projectAssignments = new HashSet<>();
     }
 
-    public Set<TaskAssignment> getEmployeeTaskJobs() {
+    public Set<TaskAssignment> getTaskAssignments() {
         return taskAssignments;
     }
 
-    public void setEmployeeTaskJobs(Set<TaskAssignment> taskAssignments) {
+    public void setTaskAssignments(Set<TaskAssignment> taskAssignments) {
         this.taskAssignments = taskAssignments;
+    }
+
+    public Set<ProjectAssignment> getProjectAssignments() {
+        return projectAssignments;
+    }
+
+    public void setProjectAssignments(Set<ProjectAssignment> projectAssignments) {
+        this.projectAssignments = projectAssignments;
     }
 
     public String getRoles() {

@@ -21,7 +21,7 @@ public class Project {
     private LocalDate endDate;
     private boolean active;
     @OneToMany(mappedBy = "project")
-    private Set<Employee> employees;
+    private Set<ProjectAssignment> projectAssignments;
     @OneToMany(mappedBy = "project")
     private Set<Task> tasks;
 
@@ -35,7 +35,7 @@ public class Project {
         this.startDate = project.startDate;
         this.endDate = project.endDate;
         this.active = project.active;
-        this.employees = project.employees;
+        this.projectAssignments = project.projectAssignments;
         this.tasks = project.tasks;
     }
 
@@ -45,7 +45,7 @@ public class Project {
         this.startDate = startDate;
         this.endDate = endDate;
         this.active = true;
-        this.employees = new HashSet<>();
+        this.projectAssignments = new HashSet<ProjectAssignment>();
         this.tasks = new HashSet<>();
     }
     public Project(String name, LocalDate startDate, LocalDate endDate) {
@@ -54,7 +54,7 @@ public class Project {
         this.startDate = startDate;
         this.endDate = endDate;
         this.active = true;
-        this.employees = new HashSet<>();
+        this.projectAssignments = new HashSet<ProjectAssignment>();
         this.tasks = new HashSet<>();
     }
 
@@ -106,12 +106,12 @@ public class Project {
         this.active = active;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
+    public Set<ProjectAssignment> getProjectAssignments() {
+        return projectAssignments;
     }
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
+    public void setProjectAssignments(Set<ProjectAssignment> employees) {
+        this.projectAssignments = employees;
     }
 
     public Set<Task> getTasks() {
