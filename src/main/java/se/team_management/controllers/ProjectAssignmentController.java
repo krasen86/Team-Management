@@ -26,7 +26,7 @@ public class ProjectAssignmentController {
         return ResponseEntity.ok().body(projectAssignmentDAO.findAllByProjectId(projectID));
     }
 
-    @PostMapping(consumes = "application/json")
+    @PostMapping()
     public ResponseEntity<?> createAssignment(@RequestBody ProjectAssignment projectAssignment){
         if (projectAssignmentDAO.findIfExistsByEmployeeIdAndProjectId(projectAssignment.getEmployee().getId(),projectAssignment.getProject().getId())) {
             return ResponseEntity
