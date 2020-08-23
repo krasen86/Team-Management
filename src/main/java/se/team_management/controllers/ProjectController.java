@@ -37,7 +37,7 @@ public class ProjectController {
         return  ResponseEntity.ok().body(projectDAO.findByName(name));
     }
 
-    @PostMapping()
+    @PostMapping(produces = { "application/json"})
     public ResponseEntity<?>  createProject(@RequestBody Project newProject){
         if (projectDAO.findIfExistsByName(newProject.getName())) {
             return ResponseEntity
