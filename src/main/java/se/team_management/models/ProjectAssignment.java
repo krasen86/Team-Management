@@ -19,6 +19,11 @@ public class ProjectAssignment {
     public ProjectAssignment() {
     }
 
+    public ProjectAssignment(Employee employee, Project project) {
+        this.employee = employee;
+        this.project = project;
+    }
+
     public Integer getId() {
         return id;
     }
