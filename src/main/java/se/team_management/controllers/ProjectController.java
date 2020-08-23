@@ -5,10 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import se.team_management.models.Project;
-import se.team_management.models.Task;
 import se.team_management.servises.ProjectDAO;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +72,7 @@ public class ProjectController {
         if (projectToModify == null){
             return ResponseEntity.notFound().build();
         }
-        updateTaskDetails(projectToModify, project);
+        updateProjectDetails(projectToModify, project);
         return  ResponseEntity.ok().body(projectDAO.save(projectToModify));
     }
 
@@ -82,18 +83,32 @@ public class ProjectController {
             return ResponseEntity.notFound().build();
         }
         projectData.forEach((k,v)->{
-            Field field = ReflectionUtils.findField(Task.class, (String) k);
-            assert field != null;
-            field.setAccessible(true);
-            ReflectionUtils.setField(field, projectToModify,v);
+            if (String.valueOf(k).contains("startDate")){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+                LocalDate localDate = LocalDate.parse(String.valueOf(v), formatter);
+                projectToModify.setStartDate(localDate);
+            }
+            else if (String.valueOf(k).contains("endDate")){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+                LocalDate localDate = LocalDate.parse(String.valueOf(v), formatter);
+                projectToModify.setEndDate(localDate);
+            }
+            else {
+                Field field = ReflectionUtils.findField(Project.class, (String) k);
+                assert field != null;
+                field.setAccessible(true);
+                ReflectionUtils.setField(field, projectToModify,v);
+            }
+
         });
         return  ResponseEntity.ok().body(projectDAO.save(projectToModify));
     }
 
-    private void updateTaskDetails(Project projectToModify, Project project) {
+    private void updateProjectDetails(Project projectToModify, Project project) {
         projectToModify.setName(project.getName());
         projectToModify.setDescription(project.getDescription());
-        projectToModify.setActive(project.isActive());
         projectToModify.setStartDate(project.getStartDate());
         projectToModify.setEndDate(project.getEndDate());
 

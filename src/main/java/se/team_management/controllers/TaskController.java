@@ -8,6 +8,8 @@ import se.team_management.models.Task;
 import se.team_management.servises.TaskDAO;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -81,10 +83,22 @@ public class TaskController {
             return ResponseEntity.notFound().build();
         }
         taskData.forEach((k,v)->{
-            Field field = ReflectionUtils.findField(Task.class, (String) k);
-            assert field != null;
-            field.setAccessible(true);
-            ReflectionUtils.setField(field, taskToModify,v);
+            if (String.valueOf(k).contains("startDate")){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate localDate = LocalDate.parse(String.valueOf(v), formatter);
+                taskToModify.setStartDate(localDate);
+            }
+            else if (String.valueOf(k).contains("endDate")){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate localDate = LocalDate.parse(String.valueOf(v), formatter);
+                taskToModify.setEndDate(localDate);
+            }
+            else {
+                Field field = ReflectionUtils.findField(Task.class, (String) k);
+                assert field != null;
+                field.setAccessible(true);
+                ReflectionUtils.setField(field, taskToModify, v);
+            }
         });
         return  ResponseEntity.ok().body(taskDAO.save(taskToModify));
     }
