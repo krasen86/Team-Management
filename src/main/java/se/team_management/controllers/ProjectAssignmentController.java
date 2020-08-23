@@ -8,7 +8,7 @@ import se.team_management.servises.ProjectAssignmentDAO;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/project-assignments")
+@RequestMapping("/api/v1/assignments")
 public class ProjectAssignmentController {
 
 
