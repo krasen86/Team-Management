@@ -27,7 +27,7 @@ public class ProjectAssignmentController {
     }
 
     @PostMapping()
-    public ResponseEntity<?>  createAssignment(@RequestBody ProjectAssignment projectAssignment){
+    public ResponseEntity<?> createAssignment(@RequestBody ProjectAssignment projectAssignment){
         if (projectAssignmentDAO.findIfExistsByEmployeeIdAndProjectId(projectAssignment.getEmployee().getId(),projectAssignment.getProject().getId())) {
             return ResponseEntity
                     .badRequest()
