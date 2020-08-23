@@ -1,7 +1,6 @@
 package se.team_management.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.team_management.models.ProjectAssignment;
@@ -27,7 +26,7 @@ public class ProjectAssignmentController {
         return ResponseEntity.ok().body(projectAssignmentDAO.findAllByProjectId(projectID));
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> createAssignment(@RequestBody ProjectAssignment projectAssignment){
         if (projectAssignmentDAO.findIfExistsByEmployeeIdAndProjectId(projectAssignment.getEmployee().getId(),projectAssignment.getProject().getId())) {
             return ResponseEntity
