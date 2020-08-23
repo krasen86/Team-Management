@@ -1,7 +1,9 @@
 package se.team_management.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +12,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Table(name = "task", uniqueConstraints={
         @UniqueConstraint(columnNames = {"title"})}, schema = "public")
 public class Task implements Serializable {
