@@ -1,9 +1,6 @@
 package se.team_management.filters;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,6 +39,13 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
+        String origin = httpServletRequest.getHeader("origin");
+        origin = (origin == null || origin.equals("")) ? "null" : origin;
+        httpServletResponse.addHeader("Access-Control-Allow-Origin", origin);
+        httpServletResponse.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
+        httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
+        httpServletResponse.addHeader("Access-Control-Allow-Headers",
+                "Authorization, origin, content-type, accept, x-requested-with");
 
         filterChain.doFilter(httpServletRequest,httpServletResponse);
     }
