@@ -3,10 +3,11 @@ package se.team_management.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "task_assignment", schema = "public")
-public class TaskAssignment {
+public class TaskAssignment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
