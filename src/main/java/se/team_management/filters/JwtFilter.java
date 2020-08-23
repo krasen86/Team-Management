@@ -39,13 +39,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        String origin = httpServletRequest.getHeader("origin");
-        origin = (origin == null || origin.equals("")) ? "null" : origin;
-        httpServletResponse.addHeader("Access-Control-Allow-Origin", origin);
-        httpServletResponse.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
-        httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
-        httpServletResponse.addHeader("Access-Control-Allow-Headers",
-                "Authorization, origin, content-type, accept, x-requested-with");
 
         filterChain.doFilter(httpServletRequest,httpServletResponse);
     }
