@@ -1,9 +1,6 @@
 package se.team_management.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -15,9 +12,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @Table(name = "employee_accounts", uniqueConstraints={
         @UniqueConstraint(columnNames = {"username", "email"})
 }, schema = "public")
@@ -41,10 +35,8 @@ public class Employee implements Serializable {
     private String roles;
     private boolean active;
     @OneToMany(mappedBy = "employee")
-    @JsonManagedReference
     private Set<TaskAssignment> taskAssignments;
     @OneToMany(mappedBy = "employee")
-    @JsonManagedReference
     private Set<ProjectAssignment> projectAssignments;
 
     public Employee() {
