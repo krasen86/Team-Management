@@ -33,7 +33,6 @@ public class Task implements Serializable {
     private Set<TaskAssignment> taskAssignments;
     @ManyToOne
     @JoinColumn(name = "project_id")
-    @JsonBackReference
     private Project project;
 
 

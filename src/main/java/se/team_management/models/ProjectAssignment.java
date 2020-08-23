@@ -1,6 +1,5 @@
 package se.team_management.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -20,11 +19,9 @@ public class ProjectAssignment implements Serializable {
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    @JsonBackReference
     private Employee employee;
     @ManyToOne
     @JoinColumn(name = "project_id")
-    @JsonBackReference
     private Project project;
 
     public ProjectAssignment() {
