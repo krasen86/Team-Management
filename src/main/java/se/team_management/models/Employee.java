@@ -1,6 +1,7 @@
 package se.team_management.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -35,8 +36,10 @@ public class Employee implements Serializable {
     private String roles;
     private boolean active;
     @OneToMany(mappedBy = "employee")
+    @JsonManagedReference(value = "taskAssignments")
     private Set<TaskAssignment> taskAssignments;
     @OneToMany(mappedBy = "employee")
+    @JsonManagedReference(value = "projectAssignments")
     private Set<ProjectAssignment> projectAssignments;
 
     public Employee() {

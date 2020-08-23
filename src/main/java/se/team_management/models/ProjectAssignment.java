@@ -15,11 +15,11 @@ public class ProjectAssignment implements Serializable {
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    @JsonBackReference
+    @JsonBackReference(value = "employee")
     private Employee employee;
     @ManyToOne
     @JoinColumn(name = "project_id")
-    @JsonBackReference
+    @JsonBackReference(value = "project")
     private Project project;
 
     public ProjectAssignment() {

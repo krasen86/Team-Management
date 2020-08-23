@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+
 @Table(name = "task_assignment", schema = "public")
 public class TaskAssignment implements Serializable {
 
@@ -15,11 +16,11 @@ public class TaskAssignment implements Serializable {
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    @JsonBackReference
+    @JsonBackReference(value = "employee")
     private Employee employee;
     @ManyToOne
     @JoinColumn(name = "task_id")
-    @JsonBackReference
+    @JsonBackReference(value = "task")
     private Task task;
 
     private long timeWorkedInMinutes;
