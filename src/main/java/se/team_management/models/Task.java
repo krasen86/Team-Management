@@ -1,5 +1,8 @@
 package se.team_management.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -20,9 +23,11 @@ public class Task {
     private String description;
     private boolean completed;
     @OneToMany(mappedBy = "task")
+    @JsonManagedReference
     private Set<TaskAssignment> taskAssignments;
     @ManyToOne
     @JoinColumn(name = "project_id")
+    @JsonBackReference
     private Project project;
 
 

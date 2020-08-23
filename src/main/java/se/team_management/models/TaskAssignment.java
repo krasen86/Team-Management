@@ -1,5 +1,7 @@
 package se.team_management.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,9 +14,11 @@ public class TaskAssignment {
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "employee_id")
+    @JsonBackReference
     private Employee employee;
     @ManyToOne
     @JoinColumn(name = "task_id")
+    @JsonBackReference
     private Task task;
 
     private long timeWorkedInMinutes;

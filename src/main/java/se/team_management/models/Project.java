@@ -1,5 +1,7 @@
 package se.team_management.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -22,8 +24,10 @@ public class Project {
     private LocalDate endDate;
     private boolean active;
     @OneToMany(mappedBy = "project")
+    @JsonManagedReference
     private Set<ProjectAssignment> projectAssignments;
     @OneToMany(mappedBy = "project")
+    @JsonManagedReference
     private Set<Task> tasks;
 
     public Project() {
