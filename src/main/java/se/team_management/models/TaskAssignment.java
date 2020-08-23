@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-
 @Table(name = "task_assignment", schema = "public")
 public class TaskAssignment implements Serializable {
 

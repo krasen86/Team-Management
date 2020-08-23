@@ -1,7 +1,5 @@
 package se.team_management.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -25,10 +23,8 @@ public class Project implements Serializable {
     private LocalDate endDate;
     private boolean active;
     @OneToMany(mappedBy = "project")
-    @JsonManagedReference(value = "projectAssignments")
     private Set<ProjectAssignment> projectAssignments;
     @OneToMany(mappedBy = "project")
-    @JsonManagedReference(value = "tasks")
     private Set<Task> tasks;
 
     public Project() {

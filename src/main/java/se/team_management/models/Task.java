@@ -1,7 +1,6 @@
 package se.team_management.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +23,6 @@ public class Task implements Serializable {
     private String description;
     private boolean completed;
     @OneToMany(mappedBy = "task")
-    @JsonManagedReference(value = "taskAssignments")
     private Set<TaskAssignment> taskAssignments;
     @ManyToOne
     @JoinColumn(name = "project_id")
