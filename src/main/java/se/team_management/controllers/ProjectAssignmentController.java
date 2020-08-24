@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import se.team_management.models.Project;
 import se.team_management.models.ProjectAssignment;
 import se.team_management.servises.ProjectAssignmentDAO;
+import se.team_management.servises.ProjectDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ public class ProjectAssignmentController {
     @Autowired
     ProjectAssignmentDAO projectAssignmentDAO;
 
+    @Autowired
+    ProjectDAO projectDAO;
 
 
     @GetMapping("/employee/{id}")
@@ -40,7 +43,7 @@ public class ProjectAssignmentController {
                     .body("The employee doesn't work on any projects!");
         }
         for (int i = 0; i<projectAssignments.size(); i++){
-            projects.add(projectAssignments.get(i).getProject());
+            projects.add(projectDAO.findById(projectAssignments.get(i).getProject().getId()));
         }
         return ResponseEntity.ok().body(projects);
     }
