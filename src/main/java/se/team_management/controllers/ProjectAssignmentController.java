@@ -3,8 +3,12 @@ package se.team_management.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.team_management.models.Project;
 import se.team_management.models.ProjectAssignment;
 import se.team_management.servises.ProjectAssignmentDAO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -24,6 +28,21 @@ public class ProjectAssignmentController {
     @GetMapping("/project/{id}")
     public ResponseEntity<?>  getAssignmentsByProjectID(@PathVariable(value = "id") Integer projectID){
         return ResponseEntity.ok().body(projectAssignmentDAO.findAllByProjectId(projectID));
+    }
+
+    @GetMapping("/project/employee/{id}")
+    public ResponseEntity<?>  getProjectsForIndividualEmployee(@PathVariable(value = "id") Integer employeeID){
+        List<ProjectAssignment> projectAssignments = projectAssignmentDAO.findByEmployeeId(employeeID);
+        List<Project> projects = new ArrayList<>();
+        if (projectAssignments == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body("The employee doesn't work on any projects!");
+        }
+        for (int i = 0; i<projectAssignments.size(); i++){
+            projects.add(projectAssignments.get(i).getProject());
+        }
+        return ResponseEntity.ok().body(projects);
     }
 
     @PostMapping()
