@@ -46,10 +46,10 @@ public class TaskController {
         }
         Task task;
         if (newTask.getDescription() == null){
-            task = new Task(newTask.getTitle(),newTask.getStartDate(),newTask.getEndDate());
+            task = new Task(newTask.getTitle(),newTask.getStartDate(),newTask.getEndDate(), newTask.getProject());
         }
         else {
-            task = new Task(newTask.getTitle(),newTask.getStartDate(),newTask.getEndDate(), newTask.getDescription());
+            task = new Task(newTask.getTitle(),newTask.getStartDate(),newTask.getEndDate(),newTask.getProject(), newTask.getDescription());
         }
         return  ResponseEntity.ok().body(taskDAO.save(task));
     }

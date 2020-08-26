@@ -31,23 +31,23 @@ public class Task implements Serializable {
 
 
 
-    public Task(String title, LocalDate startDate, LocalDate endDate, String description) {
+    public Task(String title, LocalDate startDate, LocalDate endDate, Project project, String description) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
         this.completed = false;
         this.taskAssignments = new HashSet<>();
-        this.project = new Project();
+        this.project = project;
     }
-    public Task(String title, LocalDate startDate, LocalDate endDate) {
+    public Task(String title, LocalDate startDate, LocalDate endDate, Project project) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = "";
         this.completed = false;
         this.taskAssignments = new HashSet<>();
-        this.project = new Project();
+        this.project = project;
     }
 
     public Task() {
