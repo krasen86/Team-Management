@@ -10,8 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "task", uniqueConstraints={
-        @UniqueConstraint(columnNames = {"title"})}, schema = "public")
+@Table(name = "task", schema = "public")
 public class Task implements Serializable {
 
     @Id

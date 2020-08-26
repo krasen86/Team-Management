@@ -6,6 +6,7 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import se.team_management.models.Project;
 import se.team_management.models.Task;
+import se.team_management.servises.ProjectDAO;
 import se.team_management.servises.TaskDAO;
 
 import java.lang.reflect.Field;
@@ -22,6 +23,8 @@ public class TaskController {
 
     @Autowired
     TaskDAO taskDAO;
+    @Autowired
+    ProjectDAO projectDAO;
 
     @GetMapping()
     public ResponseEntity<List<Task>> getTasks(){
@@ -57,7 +60,7 @@ public class TaskController {
     }
 
     private boolean checkIfProjectContainsTask(Task task){
-        Project project = task.getProject();
+        Project project = projectDAO.findById(task.getProject().getId());
         Set<Task> tasks = project.getTasks();
         return tasks.contains(task);
     }

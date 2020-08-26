@@ -123,4 +123,18 @@ public class Project implements Serializable {
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", active=" + active +
+                ", projectAssignments=" + projectAssignments +
+                ", tasks=" + tasks +
+                '}';
+    }
 }
