@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
+import se.team_management.models.Project;
 import se.team_management.models.Task;
 import se.team_management.servises.TaskDAO;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -39,7 +41,7 @@ public class TaskController {
 
     @PostMapping()
     public ResponseEntity<?>  createTask(@RequestBody Task newTask){
-        if (taskDAO.findIfExistsByTitle(newTask.getTitle())) {
+        if (checkIfProjectContainsTask(newTask)) {
             return ResponseEntity
                     .badRequest()
                     .body("Task title is already taken!");
@@ -52,6 +54,12 @@ public class TaskController {
             task = new Task(newTask.getTitle(),newTask.getStartDate(),newTask.getEndDate(),newTask.getProject(), newTask.getDescription());
         }
         return  ResponseEntity.ok().body(taskDAO.save(task));
+    }
+
+    private boolean checkIfProjectContainsTask(Task task){
+        Project project = task.getProject();
+        Set<Task> tasks = project.getTasks();
+        return tasks.contains(task);
     }
 
     @DeleteMapping("/{id}")
