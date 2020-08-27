@@ -5,8 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import se.team_management.models.Project;
+import se.team_management.models.ProjectAssignment;
 import se.team_management.models.Task;
+import se.team_management.models.TaskAssignment;
 import se.team_management.servises.ProjectDAO;
+import se.team_management.servises.TaskAssignmentDAO;
 import se.team_management.servises.TaskDAO;
 
 import java.lang.reflect.Field;
@@ -25,6 +28,8 @@ public class TaskController {
     TaskDAO taskDAO;
     @Autowired
     ProjectDAO projectDAO;
+    @Autowired
+    TaskAssignmentDAO taskAssignmentDAO;
 
     @GetMapping()
     public ResponseEntity<List<Task>> getTasks(){
@@ -121,5 +126,18 @@ public class TaskController {
         taskToModify.setStartDate(task.getStartDate());
         taskToModify.setEndDate(task.getEndDate());
 
+    }
+
+    @PostMapping("/assignments")
+    public ResponseEntity<?> createAssignment(@RequestBody TaskAssignment taskAssignment){
+        if (taskAssignmentDAO.findIfExistsByEmployeeIdAndTaskId(taskAssignment.getEmployee().getId(),taskAssignment.getTask().getId())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Assignment already exists!");
+        }
+        TaskAssignment newTaskAssignment;
+        newTaskAssignment = new TaskAssignment(taskAssignment.getEmployee(), taskAssignment.getTask());
+
+        return  ResponseEntity.ok().body(taskAssignmentDAO.save(newTaskAssignment));
     }
 }

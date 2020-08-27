@@ -22,9 +22,13 @@ public class TaskAssignment implements Serializable {
     @JsonBackReference(value = "task")
     private Task task;
 
-    private long timeWorkedInMinutes;
 
     public TaskAssignment() {
+    }
+
+    public TaskAssignment(Employee employee, Task task) {
+        this.employee = employee;
+        this.task = task;
     }
 
     public Integer getId() {
@@ -51,11 +55,4 @@ public class TaskAssignment implements Serializable {
         this.task = task;
     }
 
-    public long getTimeWorkedInMinutes() {
-        return timeWorkedInMinutes;
-    }
-
-    public void setTimeWorkedInMinutes(long timeWorkedInMinutes) {
-        this.timeWorkedInMinutes = timeWorkedInMinutes;
-    }
 }
