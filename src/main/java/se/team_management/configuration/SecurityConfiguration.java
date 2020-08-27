@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Qualifier("employeeDetailService")
     @Autowired
-    UserDetailsService userDetailService;
+    private UserDetailsService userDetailService;
     @Autowired
     private JwtFilter jwtFilter;
 

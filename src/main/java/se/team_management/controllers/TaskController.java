@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import se.team_management.models.Project;
-import se.team_management.models.ProjectAssignment;
 import se.team_management.models.Task;
 import se.team_management.models.TaskAssignment;
 import se.team_management.servises.ProjectDAO;
@@ -25,11 +24,11 @@ import java.util.Set;
 public class TaskController {
 
     @Autowired
-    TaskDAO taskDAO;
+    private TaskDAO taskDAO;
     @Autowired
-    ProjectDAO projectDAO;
+    private ProjectDAO projectDAO;
     @Autowired
-    TaskAssignmentDAO taskAssignmentDAO;
+    private TaskAssignmentDAO taskAssignmentDAO;
 
     @GetMapping()
     public ResponseEntity<List<Task>> getTasks(){

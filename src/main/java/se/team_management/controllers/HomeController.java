@@ -24,7 +24,7 @@ public class HomeController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    EmployeeDAO employeeDAO;
+    private EmployeeDAO employeeDAO;
 
     @PostMapping("/login")
     public ResponseEntity<?> generateJwToken(@RequestBody AuthRequst authRequst) {

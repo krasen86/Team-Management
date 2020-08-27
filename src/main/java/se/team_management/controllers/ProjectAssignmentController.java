@@ -17,7 +17,7 @@ public class ProjectAssignmentController {
 
 
     @Autowired
-    ProjectAssignmentDAO projectAssignmentDAO;
+    private ProjectAssignmentDAO projectAssignmentDAO;
 
 
 

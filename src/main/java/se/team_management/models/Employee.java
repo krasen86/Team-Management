@@ -150,13 +150,17 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Employee{" +
                 "id=" + id +
-                ", userName='" + username + '\'' +
-                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
+                ", email='" + email + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", roles='" + roles + '\'' +
                 ", active=" + active +
+                ", taskAssignments=" + taskAssignments +
+                ", projectAssignments=" + projectAssignments +
                 '}';
     }
 }

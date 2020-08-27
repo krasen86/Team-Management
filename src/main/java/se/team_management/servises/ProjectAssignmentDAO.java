@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class ProjectAssignmentDAO {
     @Autowired
-    ProjectAssignmentRepository projectAssignmentRepository;
+    private ProjectAssignmentRepository projectAssignmentRepository;
 
     public ProjectAssignment save(ProjectAssignment projectAssignment){
         return projectAssignmentRepository.save(projectAssignment);

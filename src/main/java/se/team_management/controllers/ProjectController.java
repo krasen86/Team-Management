@@ -19,7 +19,7 @@ import java.util.Map;
 public class ProjectController {
 
     @Autowired
-    ProjectDAO projectDAO;
+    private ProjectDAO projectDAO;
 
     @GetMapping()
     public ResponseEntity<List<Project>> getTasks(){

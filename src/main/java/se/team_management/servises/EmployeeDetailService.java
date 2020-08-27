@@ -11,7 +11,7 @@ import se.team_management.models.Employee;
 public class EmployeeDetailService implements UserDetailsService {
 
     @Autowired
-    EmployeeDAO employeeDAO;
+    private EmployeeDAO employeeDAO;
 
     @Override
     public UserDetails loadUserByUsername(String username) {

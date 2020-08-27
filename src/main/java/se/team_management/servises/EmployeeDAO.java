@@ -13,7 +13,7 @@ import java.util.Optional;
 public class EmployeeDAO {
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     public Employee save(Employee employee){
         return employeeRepository.save(employee);
@@ -41,11 +41,6 @@ public class EmployeeDAO {
         return user.map(Employee::new).get();
     }
 
-//    public User findAllByFirstName(String firstName){
-//        Optional<List<User>> user = userRepository.findAllByFirstName(email);
-//        user.orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + firstName));
-//        return  user.map(User::new).get();
-//    }
 
 
     public void delete(Employee employee){

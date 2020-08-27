@@ -23,7 +23,7 @@ public class EmployeeDetails implements UserDetails {
         this.username = employee.getUsername();
         this.password = employee.getPassword();
         this.active = employee.isActive();
-        authorityList = Arrays.stream(employee.getRoles().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        this.authorityList = Arrays.stream(employee.getRoles().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override

@@ -3,7 +3,6 @@ package se.team_management.servises;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import se.team_management.models.Employee;
 import se.team_management.models.Task;
 import se.team_management.repository.TaskRepository;
 
@@ -14,7 +13,7 @@ import java.util.Optional;
 public class TaskDAO {
 
     @Autowired
-    TaskRepository taskRepository;
+    private TaskRepository taskRepository;
 
     public Task save(Task task){
         return taskRepository.save(task);

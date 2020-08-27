@@ -17,7 +17,7 @@ import java.util.Map;
 public class EmployeeController {
 
     @Autowired
-    EmployeeDAO employeeDAO;
+    private EmployeeDAO employeeDAO;
 
     @GetMapping()
     public ResponseEntity<List<Employee>> getUsers(){

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "task_assignment", schema = "public")
@@ -21,7 +22,8 @@ public class TaskAssignment implements Serializable {
     @JoinColumn(name = "task_id")
     @JsonBackReference(value = "task")
     private Task task;
-
+    @OneToMany(mappedBy = "taskAssignment")
+    private Set<HoursWorked> hoursWorked;
 
     public TaskAssignment() {
     }
@@ -55,4 +57,21 @@ public class TaskAssignment implements Serializable {
         this.task = task;
     }
 
+    public Set<HoursWorked> getHoursWorked() {
+        return hoursWorked;
+    }
+
+    public void setHoursWorked(Set<HoursWorked> hoursWorked) {
+        this.hoursWorked = hoursWorked;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskAssignment{" +
+                "id=" + id +
+                ", employee=" + employee +
+                ", task=" + task +
+                ", hoursWorked=" + hoursWorked +
+                '}';
+    }
 }

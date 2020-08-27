@@ -53,4 +53,13 @@ public class ProjectAssignment implements Serializable {
     public void setProject(Project project) {
         this.project = project;
     }
+
+    @Override
+    public String toString() {
+        return "ProjectAssignment{" +
+                "id=" + id +
+                ", employee=" + employee +
+                ", project=" + project +
+                '}';
+    }
 }

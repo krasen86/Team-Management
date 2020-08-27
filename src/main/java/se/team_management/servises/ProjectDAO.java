@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import se.team_management.models.Project;
-import se.team_management.models.Task;
 import se.team_management.repository.ProjectRepository;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public class ProjectDAO {
 
 
     @Autowired
-    ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
 
     public Project save(Project project){
         return projectRepository.save(project);
