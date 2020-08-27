@@ -21,7 +21,6 @@ public class HoursWorked {
     @ManyToOne
     @JoinColumn(name = "task_assignment_id")
     @JsonBackReference(value = "taskAssignment")
-    @Column(name = "task_assignment")
     private TaskAssignment taskAssignment;
 
     public HoursWorked() {
