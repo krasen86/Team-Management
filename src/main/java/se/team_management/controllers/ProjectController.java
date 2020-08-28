@@ -45,11 +45,19 @@ public class ProjectController {
                     .body("Project name is already taken!");
         }
         Project project;
-        if (newProject.getDescription() == null){
-            project = new Project(newProject.getName(),newProject.getStartDate(),newProject.getEndDate());
+        if (newProject.getDescription() == null || newProject.getBudget() == 0){
+            if (newProject.getDescription() == null && newProject.getBudget() == 0 ){
+                project = new Project(newProject.getName(),newProject.getStartDate(),newProject.getEndDate());
+            }
+            else if (newProject.getDescription() == null){
+                project = new Project(newProject.getName(),newProject.getStartDate(),newProject.getEndDate(), newProject.getBudget());
+            }
+            else {
+                project = new Project(newProject.getName(),newProject.getStartDate(),newProject.getEndDate(),newProject.getDescription());
+            }
         }
         else {
-            project = new Project(newProject.getName(),newProject.getStartDate(),newProject.getEndDate(), newProject.getDescription());
+            project = new Project(newProject.getName(),newProject.getStartDate(),newProject.getEndDate(),newProject.getBudget(), newProject.getDescription());
         }
         return  ResponseEntity.ok().body(projectDAO.save(project));
     }
@@ -109,6 +117,7 @@ public class ProjectController {
     private void updateProjectDetails(Project projectToModify, Project project) {
         projectToModify.setName(project.getName());
         projectToModify.setDescription(project.getDescription());
+        projectToModify.setBudget(project.getBudget());
         projectToModify.setStartDate(project.getStartDate());
         projectToModify.setEndDate(project.getEndDate());
 

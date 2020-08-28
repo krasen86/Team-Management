@@ -19,6 +19,7 @@ public class Project implements Serializable {
     @Column(name = "project_name") @NotBlank
     private String name;
     private String description;
+    private double budget;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean active;
@@ -37,6 +38,7 @@ public class Project implements Serializable {
         this.startDate = project.startDate;
         this.endDate = project.endDate;
         this.active = project.active;
+        this.budget = project.budget;
         this.projectAssignments = project.projectAssignments;
         this.tasks = project.tasks;
     }
@@ -46,6 +48,27 @@ public class Project implements Serializable {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.budget = 0;
+        this.active = true;
+        this.projectAssignments = new HashSet<ProjectAssignment>();
+        this.tasks = new HashSet<>();
+    }
+    public Project(String name, LocalDate startDate, LocalDate endDate ,double budget, String description) {
+        this.name = name;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.budget = budget;
+        this.active = true;
+        this.projectAssignments = new HashSet<ProjectAssignment>();
+        this.tasks = new HashSet<>();
+    }
+    public Project(String name, LocalDate startDate, LocalDate endDate ,double budget) {
+        this.name = name;
+        this.description = "No description has been added";
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.budget = budget;
         this.active = true;
         this.projectAssignments = new HashSet<ProjectAssignment>();
         this.tasks = new HashSet<>();
@@ -124,6 +147,14 @@ public class Project implements Serializable {
         this.tasks = tasks;
     }
 
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -132,6 +163,7 @@ public class Project implements Serializable {
                 ", description='" + description + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", budget=" + budget +
                 ", active=" + active +
                 ", projectAssignments=" + projectAssignments +
                 ", tasks=" + tasks +
