@@ -77,6 +77,7 @@ public class Project implements Serializable {
         this.name = name;
         this.description = "N/A";
         this.startDate = startDate;
+        this.budget = 0;
         this.endDate = endDate;
         this.active = true;
         this.projectAssignments = new HashSet<ProjectAssignment>();
